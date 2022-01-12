@@ -208,6 +208,7 @@ MRuby::CrossBuild.new("win") do |conf|
   conf.cxx.command = "zig c++ -target x86_64-windows-gnu"
 end
 MRuby::CrossBuild.new("web") do |conf|
+  @project_root = '/home/tradam/Documents/FelFlameEngine'
   conf.toolchain :clang
 
   # Use mrbgems
@@ -220,52 +221,52 @@ MRuby::CrossBuild.new("web") do |conf|
   # conf.gem :core => 'mruby-eval'
   # conf.gem :mgem => 'mruby-onig-regexp'
   # conf.gem :github => 'mattn/mruby-onig-regexp'
-  conf.gem :core => 'mruby-bin-mirb'
+  #conf.gem :core => 'mruby-bin-mirb'
   conf.gem :git => 'git@github.com:realtradam/sample-mruby-gem.git', :branch => 'test', :options => '-v'
 
   # include the GEM box
-  #conf.gembox 'default'
-  conf.gembox "stdlib"
-  conf.gembox "stdlib-ext"
+  conf.gembox 'default'
+  #conf.gembox "stdlib"
+  #conf.gembox "stdlib-ext"
 
   #conf.gembox "stdlib-io"
   # Use standard print/puts/p
-  conf.gem :core => "mruby-print"
+  #conf.gem :core => "mruby-print"
   # Use standard IO/File class
   #conf.gem :core => "mruby-socket"
   # Use standard IO/File class
-  conf.gem :core => "mruby-io"
+  #conf.gem :core => "mruby-io"
 
-  conf.gembox "math"
-  conf.gembox "metaprog"
-  # Generate mrbc command
-  conf.gem :core => "mruby-bin-mrbc"
-  # Generate mirb command
-  conf.gem :core => "mruby-bin-mirb"
-  # Generate mruby command
-  conf.gem :core => "mruby-bin-mruby"
-  # Generate mruby-strip command
-  conf.gem :core => "mruby-bin-strip"
-  # Generate mruby-config command
-  conf.gem :core => "mruby-bin-config"
+  #conf.gembox "math"
+  #conf.gembox "metaprog"
+  ## Generate mrbc command
+  #conf.gem :core => "mruby-bin-mrbc"
+  ## Generate mirb command
+  #conf.gem :core => "mruby-bin-mirb"
+  ## Generate mruby command
+  #conf.gem :core => "mruby-bin-mruby"
+  ## Generate mruby-strip command
+  #conf.gem :core => "mruby-bin-strip"
+  ## Generate mruby-config command
+  #conf.gem :core => "mruby-bin-config"
 
 
   #conf.host_target = "x86_64-w64-mingw32"
 
   conf.cc do |cc|
     cc.command = 'emcc'
-    cc.include_paths = ["#{root}/include", '../raylib/src', '../raylib/src/external']
-    cc.flags = ['-Wall', '-std=c99', '-D_DEFAULT_SOURCE', '-Wno-missing-braces', '-Os', '-s USE_GLFW=3', '-s TOTAL_MEMORY=67108864', '-s FORCE_FILESYSTEM=1',  '--shell-file ../raylib/src/shell.html', '-DPLATFORM_WEB']
+    cc.include_paths = ["#{root}/include", "#{@project_root}/raylib/src", "#{@project_root}/raylib/src/external"]
+    cc.flags = ['-Wall', '-std=c99', '-D_DEFAULT_SOURCE', '-Wno-missing-braces', '-Os', '-s USE_GLFW=3', '-s TOTAL_MEMORY=67108864', '-s FORCE_FILESYSTEM=1',  "--shell-file #{@project_root}/raylib/src/shell.html", '-DPLATFORM_WEB']
   end
-  #emcc -c raylib_game.c -o raylib_game.o -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -Os -s USE_GLFW=3 -s TOTAL_MEMORY=67108864 -s FORCE_FILESYSTEM=1  --shell-file ../raylib/src/shell.html -I. -I../raylib/src -I../raylib/src/external -DPLATFORM_WEB
+  #emcc -c raylib_game.c -o raylib_game.o -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -Os -s USE_GLFW=3 -s TOTAL_MEMORY=67108864 -s FORCE_FILESYSTEM=1  --shell-file #{@project_root}/raylib/src/shell.html -I. -I#{@project_root}/raylib/src -I#{@project_root}/raylib/src/external -DPLATFORM_WEB
 
   conf.linker do |linker|
-    linker.command = 'em++'
-    linker.flags = ['-lraylib -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -Os -s USE_GLFW=3 -s TOTAL_MEMORY=67108864 -s FORCE_FILESYSTEM=1  --shell-file ../raylib/src/shell.html' ]
-    linker.library_paths = ['.', '../raylib/src', '../raylib/src/external', '../raylib_lib_files/web/']
+    linker.command = 'emcc'
+    linker.flags = ["-lraylib -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -Os -s USE_GLFW=3 -s TOTAL_MEMORY=67108864 -s FORCE_FILESYSTEM=1  --shell-file #{@project_root}/raylib/src/shell.html"]
+    linker.library_paths = ['.', "#{@project_root}/raylib/src", "#{@project_root}/raylib/src/external", "#{@project_root}/raylib_lib_files/web/"]
   end
 
-  #emcc -o raylib_game.html  raylib_game.o -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -Os -s USE_GLFW=3 -s TOTAL_MEMORY=67108864 -s FORCE_FILESYSTEM=1  --shell-file ../raylib/src/shell.html -I. -I../raylib/src -I../raylib/src/external -L. -L../raylib/src -L../raylib/src ../raylib/src/libraylib.a -DPLATFORM_WEB
+  #emcc -o raylib_game.html  raylib_game.o -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -Os -s USE_GLFW=3 -s TOTAL_MEMORY=67108864 -s FORCE_FILESYSTEM=1  --shell-file #{@project_root}/raylib/src/shell.html -I. -I#{@project_root}/raylib/src -I#{@project_root}/raylib/src/external -L. -L#{@project_root}/raylib/src -L#{@project_root}/raylib/src #{@project_root}/raylib/src/libraylib.a -DPLATFORM_WEB
 
   conf.archiver do |archiver|
     archiver.command = 'emar'
