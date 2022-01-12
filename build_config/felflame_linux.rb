@@ -208,7 +208,7 @@ MRuby::CrossBuild.new("win") do |conf|
   conf.cxx.command = "zig c++ -target x86_64-windows-gnu"
 end
 MRuby::CrossBuild.new("web") do |conf|
-  @project_root = '/home/tradam/Documents/FelFlameEngine'
+  @project_root = '../'
   conf.toolchain :clang
 
   # Use mrbgems
