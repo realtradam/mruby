@@ -13,11 +13,11 @@ MRuby::Build.new do |conf|
   # conf.gem :core => 'mruby-eval'
   # conf.gem :mgem => 'mruby-onig-regexp'
   # conf.gem :github => 'mattn/mruby-onig-regexp'
-  conf.gem :core => 'mruby-bin-mirb'
-  conf.gem :git => 'git@github.com:realtradam/sample-mruby-gem.git', :branch => 'test', :options => '-v'
+  #conf.gem :core => 'mruby-bin-mirb'
+  #conf.gem :git => 'git@github.com:realtradam/sample-mruby-gem.git', :branch => 'test', :options => '-v'
 
   # include the GEM box
-  conf.gembox 'default'
+  conf.gembox 'felflame'
 
   # C compiler settings
   conf.cc do |cc|
@@ -161,34 +161,35 @@ MRuby::CrossBuild.new("win") do |conf|
   # conf.gem :core => 'mruby-eval'
   # conf.gem :mgem => 'mruby-onig-regexp'
   # conf.gem :github => 'mattn/mruby-onig-regexp'
-  conf.gem :core => 'mruby-bin-mirb'
-  conf.gem :git => 'git@github.com:realtradam/sample-mruby-gem.git', :branch => 'test', :options => '-v'
+  #conf.gem :core => 'mruby-bin-mirb'
+  #conf.gem :git => 'git@github.com:realtradam/sample-mruby-gem.git', :branch => 'test', :options => '-v'
 
   # include the GEM box
+  conf.gembox 'felflame'
   #conf.gembox 'default'
-  conf.gembox "stdlib"
-  conf.gembox "stdlib-ext"
+  #conf.gembox "stdlib"
+  #conf.gembox "stdlib-ext"
 
   #conf.gembox "stdlib-io"
   # Use standard print/puts/p
-  conf.gem :core => "mruby-print"
+  #conf.gem :core => "mruby-print"
   # Use standard IO/File class
   #conf.gem :core => "mruby-socket"
   # Use standard IO/File class
-  conf.gem :core => "mruby-io"
+  #conf.gem :core => "mruby-io"
 
-  conf.gembox "math"
-  conf.gembox "metaprog"
+  #conf.gembox "math"
+  #conf.gembox "metaprog"
   # Generate mrbc command
-  conf.gem :core => "mruby-bin-mrbc"
+  #conf.gem :core => "mruby-bin-mrbc"
   # Generate mirb command
-  conf.gem :core => "mruby-bin-mirb"
+  #conf.gem :core => "mruby-bin-mirb"
   # Generate mruby command
-  conf.gem :core => "mruby-bin-mruby"
+  #conf.gem :core => "mruby-bin-mruby"
   # Generate mruby-strip command
-  conf.gem :core => "mruby-bin-strip"
+  #conf.gem :core => "mruby-bin-strip"
   # Generate mruby-config command
-  conf.gem :core => "mruby-bin-config"
+  #conf.gem :core => "mruby-bin-config"
 
 
   conf.host_target = "x86_64-w64-mingw32"
@@ -225,7 +226,8 @@ MRuby::CrossBuild.new("web") do |conf|
   conf.gem :git => 'git@github.com:realtradam/sample-mruby-gem.git', :branch => 'test', :options => '-v'
 
   # include the GEM box
-  conf.gembox 'default'
+  #conf.gembox 'default'
+  conf.gembox 'felflame'
   #conf.gembox "stdlib"
   #conf.gembox "stdlib-ext"
 
