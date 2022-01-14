@@ -10,7 +10,7 @@ MRuby::Build.new do |conf|
   # C compiler settings
   conf.cc do |cc|
     cc.command = 'zig cc -target native'
-    cc.include_paths = ["#{root}/include", '../raylib/src']
+    cc.include_paths = ["#{root}/include", '../vendor/include/raylib']
   end
 
   # Linker settings
@@ -18,7 +18,7 @@ MRuby::Build.new do |conf|
     #  linker.command = ENV['LD'] || 'gcc'
     linker.command = 'zig cc -target native'
     linker.flags = ['-lraylib -lGL -lm -lpthread -ldl -lrt -lX11']
-    linker.library_paths = ['../raylib_lib_files']
+    linker.library_paths = ['../vendor/lib/tux/raylib']
   end
 
   conf.cxx.command = 'zig c++ -target native'
@@ -87,6 +87,7 @@ MRuby::CrossBuild.new("tux") do |conf|
   conf.cxx.command = "zig c++ -target x86_64-linux-gnu"
 end
 =end
+=begin
 MRuby::CrossBuild.new("win") do |conf|
   conf.toolchain :clang
 
@@ -111,6 +112,7 @@ MRuby::CrossBuild.new("win") do |conf|
 
   conf.cxx.command = "zig c++ -target x86_64-windows-gnu"
 end
+=end
 MRuby::CrossBuild.new("web") do |conf|
   @project_root = '../'
   conf.toolchain :clang
@@ -124,14 +126,14 @@ MRuby::CrossBuild.new("web") do |conf|
 
   conf.cc do |cc|
     cc.command = 'emcc'
-    cc.include_paths = ["#{root}/include", "#{@project_root}/raylib/src", "#{@project_root}/raylib/src/external"]
+    cc.include_paths = ["#{root}/include", "#{@project_root}/vendor/include/raylib"]
     cc.flags = ['-Wall', '-std=c99', '-D_DEFAULT_SOURCE', '-Wno-missing-braces', '-Os', '-DPLATFORM_WEB']
   end
 
   conf.linker do |linker|
     linker.command = 'emcc'
     linker.flags = ["-lraylib -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -Os -s USE_GLFW=3 -s TOTAL_MEMORY=67108864 -s FORCE_FILESYSTEM=1  --shell-file #{@project_root}/raylib/src/shell.html"]
-    linker.library_paths = ['.', "#{@project_root}/raylib/src", "#{@project_root}/raylib/src/external", "#{@project_root}/raylib_lib_files/web/"]
+    linker.library_paths = ['.', "#{@project_root}/raylib/src", "#{@project_root}/vendor/lib/web/raylib"]
   end
 
   conf.archiver do |archiver|
