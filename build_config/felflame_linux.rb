@@ -1,6 +1,7 @@
 MRuby::Build.new do |conf|
   # load specific toolchain settings
   conf.toolchain :clang
+  #conf.toolchain
 
   disable_lock # disables being stuck on a single commit
 
@@ -9,19 +10,19 @@ MRuby::Build.new do |conf|
 
   # C compiler settings
   conf.cc do |cc|
-    cc.command = 'zig cc -target native'
+    cc.command = 'zig cc -target native -O2'
     cc.include_paths = ["#{root}/include", '../vendor/include/raylib']
   end
 
   # Linker settings
   conf.linker do |linker|
-    #  linker.command = ENV['LD'] || 'gcc'
-    linker.command = 'zig cc -target native'
+    #linker.command = ENV['LD'] || 'gcc'
+    linker.command = 'zig cc -target native -O2'
     linker.flags = ['-lraylib -lGL -lm -lpthread -ldl -lrt -lX11']
     linker.library_paths = ['../vendor/lib/tux/raylib']
   end
 
-  conf.cxx.command = 'zig c++ -target native'
+  conf.cxx.command = 'zig c++ -target native -O2'
 
   # Turn on `enable_debug` for better debugging
   # conf.enable_debug

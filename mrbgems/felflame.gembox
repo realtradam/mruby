@@ -1,62 +1,63 @@
 MRuby::GemBox.new do |conf|
-  # -- CORE GEMS --
+# -- CORE GEMS --
 
-    conf.gembox "stdlib"
-    conf.gembox "stdlib-ext"
-    conf.gembox "math"
-    conf.gembox "metaprog"
-    #conf.gembox "stdlib-io"
+conf.gembox "stdlib"
+conf.gembox "stdlib-ext"
+conf.gembox "math"
+conf.gembox "metaprog"
+#conf.gembox "stdlib-io"
 
-    # Use standard IO/File class
-    conf.gem :core => "mruby-io"
+# Use standard IO/File class
+conf.gem :core => "mruby-io"
 
-    # TODO: this gem doesnt current work
-	 # with windows export
-    # Use standard IO/File class
-    #conf.gem :core => "mruby-socket"
+# TODO: this gem doesnt current work
+# with windows export
+# Use standard IO/File class
+#conf.gem :core => "mruby-socket"
 
-    # Use standard print/puts/p
-    conf.gem :core => "mruby-print"
+# Use standard print/puts/p
+conf.gem :core => "mruby-print"
 
 
-    # Generate mrbc command
-    conf.gem :core => "mruby-bin-mrbc"
+# Generate mrbc command
+conf.gem :core => "mruby-bin-mrbc"
 
-    # Generate mirb command
-    conf.gem :core => "mruby-bin-mirb"
+# Generate mirb command
+conf.gem :core => "mruby-bin-mirb"
 
-    # Generate mruby command
-    conf.gem :core => "mruby-bin-mruby"
+# Generate mruby command
+conf.gem :core => "mruby-bin-mruby"
 
-    # Generate mruby-strip command
-    conf.gem :core => "mruby-bin-strip"
+# Generate mruby-strip command
+conf.gem :core => "mruby-bin-strip"
 
-    # Generate mruby-config command
-    conf.gem :core => "mruby-bin-config"
+# Generate mruby-config command
+conf.gem :core => "mruby-bin-config"
 
-  # -- OTHER GEMS --
-    # Test gem
+# -- OTHER GEMS --
+# Test gem
 
-    conf.gem :git => 'git@github.com:realtradam/sample-mruby-gem.git', :branch => 'test', :options => '-v'
+conf.gem :git => 'git@github.com:realtradam/sample-mruby-gem.git', :branch => 'test'
+conf.gem :git => 'git@github.com:realtradam/mruby-raylib.git'
 
-  # -- POTENTIAL GEMS --
-  # gems that we may want incorperated
-    
-	 # Simple Http
-	 #conf.gem :git => 'https://github.com/matsumotory/mruby-simplehttp'
+# -- POTENTIAL GEMS --
+# gems that we may want incorperated
 
-	 # Memory Profiler
-	 #conf.gem :git => 'https://github.com/iij/mruby-memprof'
+# Simple Http
+#conf.gem :git => 'https://github.com/matsumotory/mruby-simplehttp'
 
-    # Testing Framework
-	 #conf.gem :git => 'https://github.com/iij/mruby-mtest'
+# Memory Profiler
+#conf.gem :git => 'https://github.com/iij/mruby-memprof'
 
-	 # Regex
-	 #conf.gem :git => 'https://github.com/iij/mruby-regexp-pcre'
+# Testing Framework
+#conf.gem :git => 'https://github.com/iij/mruby-mtest'
 
-	 # JSON
-	 #conf.gem :git => 'https://github.com/iij/mruby-iijson'
+# Regex
+#conf.gem :git => 'https://github.com/iij/mruby-regexp-pcre'
 
-	 # Dir
-	 #conf.gem :git => 'https://github.com/iij/mruby-dir'
+# JSON
+#conf.gem :git => 'https://github.com/iij/mruby-iijson'
+
+# Dir
+#conf.gem :git => 'https://github.com/iij/mruby-dir'
 end
