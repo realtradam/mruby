@@ -37,8 +37,8 @@ conf.gem :core => "mruby-bin-config"
 # -- OTHER GEMS --
 # Test gem
 
-conf.gem :git => 'git@github.com:realtradam/sample-mruby-gem.git', :branch => 'test'
-conf.gem :git => 'git@github.com:realtradam/mruby-raylib.git'
+#conf.gem :git => 'git@github.com:realtradam/sample-mruby-gem.git', :branch => 'test'
+conf.gem :git => 'git@github.com:realtradam/mruby-raylib.git', :branch => 'dev'
 
 # -- POTENTIAL GEMS --
 # gems that we may want incorperated
