@@ -40,6 +40,9 @@ conf.gem :core => "mruby-bin-config"
 #conf.gem :git => 'git@github.com:realtradam/mruby-raylib.git', :branch => 'master'
 conf.gem '../../../../mruby-raylib'
 
+# FelECS
+conf.gem github: 'realtradam/FelECS', path: 'mrbgem'
+
 # -- POTENTIAL GEMS --
 # gems that we may want incorperated
 
