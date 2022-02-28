@@ -1,4 +1,5 @@
 MRuby::Build.new do |conf|
+  @project_root = '..'
   # load specific toolchain settings
   conf.toolchain :clang
   #conf.toolchain
@@ -11,18 +12,30 @@ MRuby::Build.new do |conf|
   # C compiler settings
   conf.cc do |cc|
     cc.command = 'zig cc -target native -O2'
-    cc.include_paths = ["#{root}/include", '../vendor/include/raylib']
   end
 
   # Linker settings
   conf.linker do |linker|
     #linker.command = ENV['LD'] || 'gcc'
-    linker.command = 'zig cc -target native -O2'
-    linker.flags = ['-lraylib -lGL -lm -lpthread -ldl -lrt -lX11']
-    linker.library_paths = ['../vendor/lib/tux/raylib']
+    linker.command = 'zig c++ -target native -O2'
   end
 
   conf.cxx.command = 'zig c++ -target native -O2'
+
+
+  # FelECS
+  conf.gem github: 'realtradam/FelECS', path: 'mrbgem'
+
+  # Raylib
+  #conf.gem :git => 'git@github.com:realtradam/mruby-raylib.git', :branch => 'master'
+  conf.gem '../../mruby-raylib'
+  conf.cc do |cc|
+    cc.include_paths << ["#{@project_root}/include", '../vendor/include/raylib']
+  end
+  conf.linker do |linker|
+    linker.flags << ['-lraylib -lGL -lm -lpthread -ldl -lrt -lX11']
+    linker.library_paths << ["#{@project_root}/vendor/lib/tux/raylib"]
+  end
 
   # Turn on `enable_debug` for better debugging
   # conf.enable_debug
@@ -120,21 +133,22 @@ MRuby::CrossBuild.new("web") do |conf|
 
   # Use mrbgems
   disable_lock # disables being stuck on a single commit
-  conf.gem :git => 'git@github.com:realtradam/sample-mruby-gem.git', :branch => 'test', :options => '-v'
+  #conf.gem :git => 'git@github.com:realtradam/sample-mruby-gem.git', :branch => 'test', :options => '-v'
 
   # include the GEM box
   conf.gembox 'felflame'
 
+
+
   conf.cc do |cc|
     cc.command = 'emcc'
-    cc.include_paths = ["#{root}/include", "#{@project_root}/vendor/include/raylib"]
-    cc.flags = ['-Wall', '-std=c99', '-D_DEFAULT_SOURCE', '-Wno-missing-braces', '-Os', '-DPLATFORM_WEB']
+    cc.flags = ['-std=c99']
   end
 
   conf.linker do |linker|
     linker.command = 'emcc'
-    linker.flags = ["-lraylib -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -Os -s USE_GLFW=3 -s TOTAL_MEMORY=67108864 -s FORCE_FILESYSTEM=1  --shell-file #{@project_root}/raylib/src/shell.html"]
-    linker.library_paths = ['.', "#{@project_root}/raylib/src", "#{@project_root}/vendor/lib/web/raylib"]
+    linker.flags = ["-std=c99 --shell-file #{@project_root}/raylib/src/shell.html"]
+    linker.library_paths = ['.']
   end
 
   conf.archiver do |archiver|
@@ -144,4 +158,20 @@ MRuby::CrossBuild.new("web") do |conf|
   conf.cxx do |cxx|
     cxx.command = "em++"
   end
+
+  # FelECS
+  conf.gem github: 'realtradam/FelECS', path: 'mrbgem'
+
+  # Raylib
+  #conf.gem :git => 'git@github.com:realtradam/mruby-raylib.git', :branch => 'master'
+  conf.gem '../../mruby-raylib'# do |g|
+  conf.cc do |cc|
+    cc.include_paths << ["#{@project_root}/include", "#{@project_root}/vendor/include/raylib"]
+    cc.flags << ['-Wall', '-D_DEFAULT_SOURCE', '-Wno-missing-braces', '-Os', '-DPLATFORM_WEB']
+  end
+  conf.linker do |linker|
+    linker.flags << ["-lraylib -Wall -D_DEFAULT_SOURCE -Wno-missing-braces -Os -s USE_GLFW=3 -s TOTAL_MEMORY=67108864 -s FORCE_FILESYSTEM=1"]
+    linker.library_paths << ["#{@project_root}/raylib/src", "#{@project_root}/vendor/lib/web/raylib"]
+  end
+
 end
